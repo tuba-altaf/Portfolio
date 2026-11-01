@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuba Altaf — Portfolio</title>
+  <meta name="description" content="Portfolio of Tuba Altaf, Oracle APEX developer. Coming soon.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&gt;_</text></svg>">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --fg: #c9d1d9;
+      --accent: #3fb950;
+      --muted: #8b949e;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .terminal {
+      width: 100%;
+      max-width: 640px;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .bar {
+      background: #161b22;
+      padding: 10px 14px;
+      display: flex;
+      gap: 8px;
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .r { background: #ff5f56; } .y { background: #ffbd2e; } .g { background: #27c93f; }
+    .body { padding: 24px; line-height: 1.8; font-size: 15px; }
+    .prompt { color: var(--accent); }
+    .muted { color: var(--muted); }
+    .cursor {
+      display: inline-block;
+      width: 9px;
+      height: 1.1em;
+      background: var(--fg);
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+    <div class="body">
+      <p><span class="prompt">tuba@portfolio:~$</span> whoami</p>
+      <p>Tuba Altaf — Oracle APEX Developer</p>
+      <p><span class="prompt">tuba@portfolio:~$</span> cat status.txt</p>
+      <p class="muted">Portfolio under construction. Check back soon.</p>
+      <p><span class="prompt">tuba@portfolio:~$</span> <span class="cursor"></span></p>
+    </div>
+  </div>
+</body>
+</html>
