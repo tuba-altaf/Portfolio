@@ -4,65 +4,373 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tuba Altaf — Portfolio</title>
-  <meta name="description" content="Portfolio of Tuba Altaf, Oracle APEX developer. Coming soon.">
+  <meta name="description" content="Tuba Altaf — Software Engineer.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&gt;_</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d1117;
-      --fg: #c9d1d9;
-      --accent: #3fb950;
-      --muted: #8b949e;
+      --bg: #fbfbf9;
+      --surface: #ffffff;
+      --text: #1c1d1f;
+      --muted: #65686e;
+      --line: #e6e5e0;
+      --accent: #1f7a4d;
+      --accent-soft: #e6f2eb;
+      --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+      --max: 760px;
     }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1113;
+        --surface: #16191c;
+        --text: #e6e7e8;
+        --muted: #9a9ea4;
+        --line: #26292d;
+        --accent: #4cc38a;
+        --accent-soft: #15261d;
+      }
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
     body {
       background: var(--bg);
-      color: var(--fg);
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
     }
-    .terminal {
-      width: 100%;
-      max-width: 640px;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      overflow: hidden;
+    a { color: inherit; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+    /* ---------- Navigation ---------- */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
     }
-    .bar {
-      background: #161b22;
-      padding: 10px 14px;
-      display: flex;
-      gap: 8px;
+    nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo {
+      font-family: var(--mono); font-weight: 500; font-size: 15px;
+      text-decoration: none;
     }
-    .dot { width: 12px; height: 12px; border-radius: 50%; }
-    .r { background: #ff5f56; } .y { background: #ffbd2e; } .g { background: #27c93f; }
-    .body { padding: 24px; line-height: 1.8; font-size: 15px; }
-    .prompt { color: var(--accent); }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 15px; color: var(--muted);
+      transition: color .15s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-links a.active { box-shadow: 0 2px 0 var(--accent); }
+    .menu-btn {
+      display: none; background: none; border: 0; color: var(--text);
+      font-size: 22px; cursor: pointer; padding: 4px 8px;
+    }
+
+    /* ---------- Sections ---------- */
+    section { padding: 88px 0; border-bottom: 1px solid var(--line); }
+    section:last-of-type { border-bottom: 0; }
+    .label {
+      font-family: var(--mono); font-size: 13px; color: var(--accent);
+      letter-spacing: .04em; margin-bottom: 10px;
+    }
+    h2 { font-size: 28px; font-weight: 700; letter-spacing: -.01em; margin-bottom: 24px; }
+    p + p { margin-top: 16px; }
     .muted { color: var(--muted); }
-    .cursor {
-      display: inline-block;
-      width: 9px;
-      height: 1.1em;
-      background: var(--fg);
-      vertical-align: text-bottom;
-      animation: blink 1s step-end infinite;
+
+    /* Home */
+    #home { padding: 120px 0 104px; }
+    #home h1 { font-size: clamp(38px, 7vw, 56px); line-height: 1.1; letter-spacing: -.02em; font-weight: 700; }
+    #home .role { font-size: 20px; color: var(--muted); margin: 14px 0 22px; }
+    #home .intro { max-width: 560px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 20px; border-radius: 8px; font-size: 15px; font-weight: 500;
+      text-decoration: none; border: 1px solid var(--line);
+      transition: transform .15s, border-color .15s, background .15s;
     }
-    @keyframes blink { 50% { opacity: 0; } }
+    .btn:hover { transform: translateY(-1px); border-color: var(--accent); }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn svg { width: 17px; height: 17px; }
+
+    /* About */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .chip {
+      font-family: var(--mono); font-size: 13px;
+      padding: 5px 12px; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent);
+    }
+
+    /* Experience */
+    .job { display: grid; grid-template-columns: 150px 1fr; gap: 24px; }
+    .job + .job { margin-top: 40px; }
+    .job .when { font-family: var(--mono); font-size: 13px; color: var(--muted); padding-top: 4px; }
+    .job h3 { font-size: 19px; font-weight: 600; }
+    .job .org { color: var(--muted); margin-bottom: 12px; }
+    .job ul { padding-left: 18px; }
+    .job li + li { margin-top: 6px; }
+    .job li::marker { color: var(--accent); }
+
+    /* Projects */
+    .projects { display: grid; gap: 16px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 12px; padding: 24px;
+      transition: border-color .15s;
+    }
+    .card:hover { border-color: var(--accent); }
+    .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .card .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .card .tags span { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+    .card .status {
+      float: right; font-family: var(--mono); font-size: 12px;
+      color: var(--accent); background: var(--accent-soft);
+      padding: 2px 10px; border-radius: 999px;
+    }
+
+    .group {
+      font-size: 14px; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .06em;
+      margin: 36px 0 14px;
+    }
+    h2 + .group { margin-top: 0; }
+
+    /* Footer */
+    footer { padding: 48px 0 56px; border-top: 1px solid var(--line); }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
+    footer .links { display: flex; gap: 20px; }
+    footer a { text-decoration: none; color: var(--muted); font-size: 15px; }
+    footer a:hover { color: var(--accent); }
+    footer small { color: var(--muted); font-size: 14px; }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      .menu-btn { display: block; }
+      .nav-links {
+        position: absolute; top: 60px; left: 0; right: 0;
+        flex-direction: column; gap: 0;
+        background: var(--bg); border-bottom: 1px solid var(--line);
+        display: none;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: 14px 20px; }
+      .nav-links a.active { box-shadow: inset 3px 0 0 var(--accent); }
+      section { padding: 64px 0; }
+      #home { padding: 80px 0 72px; }
+      .job { grid-template-columns: 1fr; gap: 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn, .card { transition: none; }
+    }
   </style>
 </head>
 <body>
-  <div class="terminal">
-    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-    <div class="body">
-      <p><span class="prompt">tuba@portfolio:~$</span> whoami</p>
-      <p>Tuba Altaf — Oracle APEX Developer</p>
-      <p><span class="prompt">tuba@portfolio:~$</span> cat status.txt</p>
-      <p class="muted">Portfolio under construction. Check back soon.</p>
-      <p><span class="prompt">tuba@portfolio:~$</span> <span class="cursor"></span></p>
+
+  <header>
+    <nav class="wrap">
+      <a href="#home" class="logo"><span>&gt;_</span> tuba altaf</a>
+      <button class="menu-btn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ================= HOME ================= -->
+    <section id="home">
+      <div class="wrap">
+        <p class="label">// hello, i'm</p>
+        <h1>Tuba Altaf</h1>
+        <p class="role">Software Engineer</p>
+        <p class="intro">
+          I build enterprise applications, from paper-to-digital systems used by 1,500+ people
+          to solutions for some of the largest banks and oil marketing companies. I'm working
+          toward AI engineering, with a focus on AI that's safe, understandable and built around people.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="https://www.linkedin.com/in/tuba-altaf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            LinkedIn
+          </a>
+          <a class="btn" href="mailto:tooba.altaf01@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            Email me
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about">
+      <div class="wrap">
+        <p class="label">// about</p>
+        <h2>About me</h2>
+        <p>
+          I'm an Oracle techno-functional consultant at JBS Global, where I build enterprise
+          applications for client organisations, including some of the largest banks and oil
+          marketing companies. Before that, I was at Pakistan State Oil, where I built
+          HSE ProGen, an AI-powered platform that took the company's health, safety and
+          environment operations off paper, and PMIS, a project management system for every department.
+        </p>
+        <p>
+          I hold a BS in Computer Science from NED University of Engineering and Technology.
+          I'm an aspiring AI engineer and work on AI projects in my free time.
+        </p>
+        <div class="chips">
+          <span class="chip">Oracle APEX</span>
+          <span class="chip">SQL</span>
+          <span class="chip">PL/SQL</span>
+          <span class="chip">Oracle Database</span>
+          <span class="chip">Full SDLC</span>
+          <span class="chip">RAG</span>
+          <span class="chip">LLMs</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EXPERIENCE ================= -->
+    <section id="experience">
+      <div class="wrap">
+        <p class="label">// experience</p>
+        <h2>Experience</h2>
+
+        <div class="job">
+          <p class="when">Current</p>
+          <div>
+            <h3>Oracle Techno-Functional Consultant</h3>
+            <p class="org">JBS Global</p>
+            <ul>
+              <li>Build enterprise applications for client organisations, including some of the largest banks and oil marketing companies.</li>
+              <li>Work across both sides of delivery: understanding each client's business processes and turning them into working Oracle solutions.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="job">
+          <p class="when">Previous</p>
+          <div>
+            <h3>Oracle APEX Developer</h3>
+            <p class="org">Pakistan State Oil</p>
+            <ul>
+              <li>Built HSE ProGen across the full SDLC, moving PSO's health, safety and environment operations from paper to an AI-powered application used by 1,500+ employees nationwide.</li>
+              <li>Built PMIS, a company-wide project management system for every department to track projects, tasks and documentation in one place.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section id="projects">
+      <div class="wrap">
+        <p class="label">// projects</p>
+        <h2>Projects</h2>
+
+        <p class="group">Pakistan State Oil</p>
+        <div class="projects">
+          <article class="card">
+            <span class="status">1,500+ users</span>
+            <h3>HSE ProGen</h3>
+            <p class="muted">
+              An AI-powered platform that digitised PSO's paper-based health, safety and environment
+              operations, now used by over 1,500 people across the country. I worked on it end to end,
+              from requirements through to rollout.
+            </p>
+            <div class="tags"><span>Oracle APEX</span><span>·</span><span>AI</span><span>·</span><span>Full SDLC</span></div>
+          </article>
+          <article class="card">
+            <h3>PMIS</h3>
+            <p class="muted">
+              A project management system in the spirit of MS Project and Trello, built so every
+              department can track its projects, tasks and documentation in one place.
+            </p>
+            <div class="tags"><span>Oracle APEX</span><span>·</span><span>Project management</span></div>
+          </article>
+        </div>
+
+        <p class="group">Final Year Design Project</p>
+        <div class="projects">
+          <article class="card">
+            <h3>MedChain</h3>
+            <p class="muted">
+              A blockchain-based electronic medical records system that puts patients in control of
+              their own data. Patients can grant or revoke access to their records, keeping sensitive
+              medical information private and tamper-resistant while still allowing it to be shared
+              securely for care and research.
+            </p>
+            <div class="tags"><span>Blockchain</span><span>·</span><span>Data privacy</span><span>·</span><span>Healthcare</span></div>
+          </article>
+        </div>
+
+        <p class="group">Personal AI project</p>
+        <div class="projects">
+          <article class="card">
+            <span class="status">in progress</span>
+            <h3>RAG Chatbot</h3>
+            <p class="muted">
+              A retrieval-augmented chatbot with a front end built in Oracle APEX. I'm now
+              building the backend that retrieves relevant documents and grounds the model's
+              answers in them.
+            </p>
+            <div class="tags"><span>Oracle APEX</span><span>·</span><span>RAG</span><span>·</span><span>LLMs</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <small>© <span id="year"></span> Tuba Altaf</small>
+      <div class="links">
+        <a href="https://www.linkedin.com/in/tuba-altaf" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:tooba.altaf01@gmail.com">Email</a>
+      </div>
     </div>
-  </div>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu
+    const btn = document.querySelector('.menu-btn');
+    const links = document.querySelector('.nav-links');
+    btn.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+    links.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => {
+        links.classList.remove('open');
+        btn.setAttribute('aria-expanded', false);
+      })
+    );
+
+    // Highlight the nav link for the section in view
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l =>
+            l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id)
+          );
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('main section').forEach(s => observer.observe(s));
+  </script>
 </body>
 </html>
